@@ -37,7 +37,7 @@ def log_file_upload(username, filename):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO user_uploads (username, filename, upload_time) VALUES (%s, %s, %s)",
+        "INSERT INTO bizpulse_db.user_uploads (username, filename, upload_time) VALUES (%s, %s, %s)",
         (username, filename, datetime.now())
     )
     conn.commit()
@@ -48,7 +48,7 @@ def get_user_uploads(username):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT filename, upload_time FROM user_uploads WHERE username = %s ORDER BY upload_time DESC",
+        "SELECT filename, upload_time FROM bizpulse_db.user_uploads WHERE username = %s ORDER BY upload_time DESC",
         (username,)
     )
     uploads = cursor.fetchall()
@@ -85,8 +85,12 @@ if option == "Signup":
     if st.button("Signup"):
         try:
             create_user(new_username, new_password)
+            st.session_state.logged_in = True
+            st.session_state.username = new_username
             st.success("✅ Account created! Please log in.")
+            st.rerun()
         except Exception as e:
+            
             st.error(f"Error: {e}")
 
 elif option == "Login":
@@ -98,6 +102,7 @@ elif option == "Login":
             st.session_state.logged_in = True
             st.session_state.username = username
             st.success("✅ Login successful!")
+            st.rerun()
         else:
             st.error("❌ Invalid username or password")
 
