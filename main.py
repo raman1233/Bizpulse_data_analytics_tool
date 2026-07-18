@@ -26,7 +26,7 @@ def create_user(username, password):
 def login_user(username, password):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+    cursor.execute("SELECT * FROM bizpulse_db.users WHERE username = %s AND password = %s", (username, password))
     user = cursor.fetchone()
     cursor.close()
     conn.close()
