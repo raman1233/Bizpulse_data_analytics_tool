@@ -7,10 +7,11 @@ from visualizer import show_visuals  # Your own visuals module
 # 1. Database Connection
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="raman@1234",  # Replace with your actual password
-        database="bizpulse_db"
+        host=st.secrets["mysql"]["host"],
+        port=st.secrets["mysql"]["port"],
+        user=st.secrets["mysql"]["user"],
+        password=st.secrets["mysql"]["password"],
+        database=st.secrets["mysql"]["database"]
     )
 
 # 2. User Account Functions
