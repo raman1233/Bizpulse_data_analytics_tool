@@ -18,7 +18,7 @@ def get_connection():
 def create_user(username, password):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
+    cursor.execute("INSERT INTO bizpulse_db.users (username, password) VALUES (%s, %s)", (username, password))
     conn.commit()
     cursor.close()
     conn.close()
@@ -87,7 +87,7 @@ if option == "Signup":
             create_user(new_username, new_password)
             st.success("✅ Account created! Please log in.")
         except Exception as e:
-            st.error(f"Error: {e}").append(item)
+            st.error(f"Error: {e}")
 
 elif option == "Login":
     st.subheader("Login")
